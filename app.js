@@ -57,11 +57,7 @@ function displayTasks(tasks) {
     });
 }
 
-try {
-    await addTask(title, description);
-} catch(error) {
-    console.error(error);
-} {
+async function addTask(title, description) {
 
     const response = await fetch(
         `${config.supabaseUrl}/rest/v1/tasks`,
@@ -71,7 +67,7 @@ try {
                 apikey: config.supabasePublishableKey,
                 Authorization: `Bearer ${config.supabasePublishableKey}`,
                 "Content-Type": "application/json",
-                Prefer: "return=minimal"
+                Prefer: "return=representation"
             },
             body: JSON.stringify({
                 title: title,
@@ -81,11 +77,13 @@ try {
         }
     );
 
-    console.log(await response.text());
+    const data = await response.text();
+
+    console.log("STATUS:", response.status);
+    console.log("RESPONSE:", data);
 
     await loadTasks();
 }
-
 document
 .getElementById("task-form")
 .addEventListener("submit", async (e) => {
