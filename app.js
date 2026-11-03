@@ -96,6 +96,8 @@ document
 });
 async function deleteTask(id) {
 
+    console.log("DELETE CLICKED", id);
+
     await fetch(
         `${config.supabaseUrl}/rest/v1/tasks?id=eq.${id}`,
         {
