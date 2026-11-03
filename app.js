@@ -140,4 +140,6 @@ async function toggleTask(id, completed) {
 }
 
 window.toggleTask = toggleTask;
+window.deleteTask = deleteTask;
+
 loadConfig();
