@@ -118,4 +118,26 @@ async function deleteTask(id) {
     loadTasks();
 }
 window.deleteTask = deleteTask;
+
+async function toggleTask(id, completed) {
+
+    await fetch(
+        `${config.supabaseUrl}/rest/v1/tasks?id=eq.${id}`,
+        {
+            method: "PATCH",
+            headers: {
+                apikey: config.supabasePublishableKey,
+                Authorization: `Bearer ${config.supabasePublishableKey}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                completed: !completed
+            })
+        }
+    );
+
+    loadTasks();
+}
+
+window.toggleTask = toggleTask;
 loadConfig();
