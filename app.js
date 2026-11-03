@@ -46,10 +46,10 @@ function displayTasks(tasks) {
             Toggle
             </button>
 
-            <button onclick="deleteTask(${task.id})">
+           <button onclick="alert('Delete clicked')">
             Delete
-            </button>
-        </div>
+            </button>           
+            </div>
         `;
     });
 }
