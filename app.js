@@ -3,7 +3,6 @@ let config;
 async function loadConfig() {
     const response = await fetch("config.json");
     config = await response.json();
-
     loadTasks();
 }
 
@@ -33,7 +32,6 @@ function displayTasks(tasks) {
 
         taskList.innerHTML += `
         <div class="task-item" data-id="${task.id}">
-
             <h3 class="task-title">${task.title}</h3>
 
             <p class="task-description">
@@ -44,14 +42,8 @@ function displayTasks(tasks) {
                 ${task.completed ? "Completed" : "Incomplete"}
             </p>
 
-            <button onclick="toggleTask(${task.id}, ${task.completed})">
-                Toggle
-            </button>
-
-            <button onclick="deleteTask(${task.id})">
-                Delete
-            </button>
-
+            <button>Toggle</button>
+            <button>Delete</button>
         </div>
         `;
     });
@@ -66,8 +58,7 @@ async function addTask(title, description) {
             headers: {
                 apikey: config.supabasePublishableKey,
                 Authorization: `Bearer ${config.supabasePublishableKey}`,
-                "Content-Type": "application/json",
-                Prefer: "return=representation"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 title: title,
@@ -77,13 +68,11 @@ async function addTask(title, description) {
         }
     );
 
-    const data = await response.text();
+    console.log("Status:", response.status);
 
-    console.log("STATUS:", response.status);
-    console.log("RESPONSE:", data);
-
-    await loadTasks();
+    loadTasks();
 }
+
 document
 .getElementById("task-form")
 .addEventListener("submit", async (e) => {
