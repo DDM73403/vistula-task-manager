@@ -111,4 +111,5 @@ async function deleteTask(id) {
 
     loadTasks();
 }
+window.deleteTask = deleteTask;
 loadConfig();
