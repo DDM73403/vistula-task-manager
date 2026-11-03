@@ -46,6 +46,10 @@ function displayTasks(tasks) {
             Toggle
             </button>
 
+            <button onclick="editTask(${task.id}, '${task.title}', '${task.description || ""}')">
+            Edit
+            </button>
+
            <button onclick="alert('Delete clicked')">
             Delete
             </button>           
@@ -141,5 +145,40 @@ async function toggleTask(id, completed) {
 
 window.toggleTask = toggleTask;
 window.deleteTask = deleteTask;
+
+function editTask(id, title, description) {
+
+    document.getElementById("task-title").value = title;
+    document.getElementById("task-description").value = description;
+
+    const newTitle = prompt("Edit title:", title);
+
+    if (!newTitle) return;
+
+    updateTask(id, newTitle, description);
+}
+
+async function updateTask(id, title, description) {
+
+    await fetch(
+        `${config.supabaseUrl}/rest/v1/tasks?id=eq.${id}`,
+        {
+            method: "PATCH",
+            headers: {
+                apikey: config.supabasePublishableKey,
+                Authorization: `Bearer ${config.supabasePublishableKey}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: title,
+                description: description
+            })
+        }
+    );
+
+    loadTasks();
+}
+
+window.editTask = editTask;
 
 loadConfig();
