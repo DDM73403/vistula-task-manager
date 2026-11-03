@@ -57,7 +57,11 @@ function displayTasks(tasks) {
     });
 }
 
-async function addTask(title, description) {
+try {
+    await addTask(title, description);
+} catch(error) {
+    console.error(error);
+} {
 
     const response = await fetch(
         `${config.supabaseUrl}/rest/v1/tasks`,
@@ -67,7 +71,7 @@ async function addTask(title, description) {
                 apikey: config.supabasePublishableKey,
                 Authorization: `Bearer ${config.supabasePublishableKey}`,
                 "Content-Type": "application/json",
-                Prefer: "return=representation"
+                Prefer: "return=minimal"
             },
             body: JSON.stringify({
                 title: title,
@@ -77,13 +81,9 @@ async function addTask(title, description) {
         }
     );
 
-    console.log("Status:", response.status);
+    console.log(await response.text());
 
-    const result = await response.text();
-
-    console.log(result);
-
-    loadTasks();
+    await loadTasks();
 }
 
 document
