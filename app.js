@@ -42,8 +42,13 @@ function displayTasks(tasks) {
                 ${task.completed ? "Completed" : "Incomplete"}
             </p>
 
-            <button>Toggle</button>
-            <button>Delete</button>
+            <button onclick="toggleTask(${task.id}, ${task.completed})">
+            Toggle
+            </button>
+
+            <button onclick="deleteTask(${task.id})">
+            Delete
+            </button>
         </div>
         `;
     });
@@ -89,5 +94,19 @@ document
 
     e.target.reset();
 });
+async function deleteTask(id) {
 
+    await fetch(
+        `${config.supabaseUrl}/rest/v1/tasks?id=eq.${id}`,
+        {
+            method: "DELETE",
+            headers: {
+                apikey: config.supabasePublishableKey,
+                Authorization: `Bearer ${config.supabasePublishableKey}`
+            }
+        }
+    );
+
+    loadTasks();
+}
 loadConfig();
