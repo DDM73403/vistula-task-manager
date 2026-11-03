@@ -98,7 +98,7 @@ async function deleteTask(id) {
 
     console.log("DELETE CLICKED", id);
 
-    await fetch(
+    const response = await fetch(
         `${config.supabaseUrl}/rest/v1/tasks?id=eq.${id}`,
         {
             method: "DELETE",
@@ -108,6 +108,12 @@ async function deleteTask(id) {
             }
         }
     );
+
+    console.log("DELETE STATUS:", response.status);
+
+    const result = await response.text();
+
+    console.log("DELETE RESPONSE:", result);
 
     loadTasks();
 }
