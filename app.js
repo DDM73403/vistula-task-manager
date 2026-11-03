@@ -42,8 +42,10 @@ function displayTasks(tasks) {
                 ${task.completed ? "Completed" : "Incomplete"}
             </p>
 
-            <button onclick="toggleTask(${task.id}, ${task.completed})">
-            Toggle
+            <button
+            class="delete-task"
+            onclick="deleteTask(${task.id})">
+            Delete
             </button>
 
             <button onclick="editTask(${task.id}, '${task.title}', '${task.description || ""}')">
