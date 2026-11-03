@@ -59,21 +59,29 @@ function displayTasks(tasks) {
 
 async function addTask(title, description) {
 
-    await fetch(
+    const response = await fetch(
         `${config.supabaseUrl}/rest/v1/tasks`,
         {
             method: "POST",
             headers: {
                 apikey: config.supabasePublishableKey,
-                "Content-Type": "application/json"
+                Authorization: `Bearer ${config.supabasePublishableKey}`,
+                "Content-Type": "application/json",
+                Prefer: "return=representation"
             },
             body: JSON.stringify({
-                title,
-                description,
+                title: title,
+                description: description,
                 completed: false
             })
         }
     );
+
+    console.log("Status:", response.status);
+
+    const result = await response.text();
+
+    console.log(result);
 
     loadTasks();
 }
