@@ -22,4 +22,4 @@ Supabase
 Table name: tasks
 Pull Request Created: https://github.com/kuna73477/vistula-task-manager/pull/2
 
-Pull Request Received: (Add after Part B)
+Pull Request Received: https://github.com/DDM73403/vistula-task-manager/pull/1
