@@ -43,19 +43,23 @@ function displayTasks(tasks) {
             </p>
 
             <button
-            class="delete-task"
-            onclick="deleteTask(${task.id})">
-            Delete
+            class="toggle-task"
+            onclick="toggleTask(${task.id}, ${task.completed})">
+            Toggle
             </button>
 
-            <button onclick="editTask(${task.id}, '${task.title}', '${task.description || ""}')">
+            <button
+            class="edit-task"
+            onclick="editTask(${task.id}, '${task.title}', '${task.description || ""}')">
             Edit
             </button>
 
-           <button onclick="alert('Delete clicked')">
+           <button
+            class="delete-task"
+            onclick="deleteTask(${task.id})">
             Delete
-            </button>           
-            </div>
+            </button>          
+            <div>
         `;
     });
 }
